@@ -3,62 +3,104 @@
 <head>
   <title>Facts and Opinions</title>
   <style>
-    body {
-      min-width: 200px;
-      min-height: 100px;
-      padding: 10px;
-      font-family: Arial, sans-serif;
-      color: #333;
-      background-color: #f8f8f8;
+    :root {
+      --primary-color: #4CAF50;
+      --hover-color: #45a049;
+      --background-color: #f8f8f8;
+      --result-bg-color: #ddd;
     }
+
+    body {
+    min-width: 320px;
+    max-width: 1024px;
+    height: auto;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto; /* Centers the content horizontally */
+  }
+
+
     .hide {
       display: none;
     }
-    .button-row {
+
+    #mainView, #apiView {
+      width: 100%;
+    }
+
+    .button-row, .center-button {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
+      margin: 10px 0; /* Add margin to top and bottom */
     }
-    .center-button {
-      display: flex;
-      justify-content: center;
-      margin: 10px 0;
-    }
+
+
     input[type=text], textarea {
+    width: 100%;
+    min-width: 300px;
+    max-width: 1000px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 auto; /* Centers the textarea when its width is less than the container's width */
+  }
+
+
+  .center-button {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+
+    .content-container {
+      display: flex;
+      flex-direction: column;
       width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-bottom: 10px;
     }
+
     button {
       padding: 10px 20px;
-      background-color: #4CAF50;
+      background-color: var(--primary-color);
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-size: 1em;
+      transition: background-color 0.3s ease;
     }
+
     button:hover {
-      background-color: #45a049;
+      background-color: var(--hover-color);
     }
+
     #resultArea {
-      margin-top: 10px;
+      margin: 10px auto; /* 10px top and bottom margin, auto left and right margin */
       padding: 10px;
       border-radius: 4px;
-      background-color: #ddd;
+      background-color: var(--result-bg-color);
+      width: 100%;
+      max-width: 1000px; /* Optional: Limit the width of the result area if desired */
+      box-sizing: border-box;
+      white-space: pre-wrap; /* Allows the text to wrap to the next line */
     }
+
+
     h1 {
       text-align: center;
-      color: #4CAF50;
+      color: var(--primary-color);
       font-size: 1.5em;
     }
   </style>
 </head>
 <body>
-  <div id="apiView">
+  <div id="apiView" class="hide">
     <h1>Facts and Opinions</h1>
     <input type="text" id="apiKeyInput" placeholder="Enter your API key">
     <div class="center-button">
@@ -69,12 +111,17 @@
   <div id="mainView" class="hide">
     <h1>Facts and Opinions</h1>
     <p>Please insert here the text to analyze:</p>
-    <textarea id="textArea" rows="4" cols="50"></textarea>
-    <div class="button-row">
-      <button id="editApiKeyButton">Edit API Key</button>
-      <button id="submitButton" disabled>Submit</button>
+    <div class="content-container">
+      <textarea id="textArea" rows="4" cols="50"></textarea>
+      <div class="button-row">
+        <button id="editApiKeyButton">Edit API Key</button>
+        <button id="submitButton" disabled>Submit</button>
+      </div>
+      <div id="resultArea"></div>
+      <div class="center-button">
+        <button id="copyButton" disabled>Copy Result</button>
+      </div>
     </div>
-    <div id="resultArea"></div>
   </div>
 
   <script src="popup.js"></script>

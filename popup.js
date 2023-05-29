@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var textArea = document.getElementById('textArea');
   var resultArea = document.getElementById('resultArea');
   var editApiKeyButton = document.getElementById('editApiKeyButton');
-  
+  var copyButton = document.getElementById('copyButton');
+
+
   // Check if API key is stored in local storage
   chrome.storage.local.get(['API_KEY'], function(result) {
     if(result.API_KEY) {
@@ -49,6 +51,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  copyButton.addEventListener('click', function() {
+    // Create a temporary textarea to hold the text to be copied
+    var tempElement = document.createElement('textarea');
+    tempElement.value = resultArea.textContent;
+    document.body.appendChild(tempElement);
+  
+    // Select the text and copy it
+    tempElement.select();
+    document.execCommand('copy');
+  
+    // Remove the temporary textarea
+    document.body.removeChild(tempElement);
+  
+    // Indicate that the copy was successful
+    copyButton.textContent = 'Copied!';
+    setTimeout(function() {
+      copyButton.textContent = 'Copy Result';
+    }, 2000);
+  });
+  
+
   submitButton.addEventListener('click', function() {
     var textAreaValue = textArea.value;
     var lambdaFunctionUrl = 'https://p5yv54ffwizsf2va6zyzedgdni0dzwnq.lambda-url.eu-west-2.on.aws/';
@@ -85,6 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Display the result
         var resultText = data.result.replace(/\n/g, '<br>');
         resultArea.innerHTML = '<pre>' + resultText + '</pre>';
+        // Enable the copy button now that there's a result to copy
+        copyButton.disabled = false;
       })
       .catch(error => {
         console.error('Error calling Lambda function:', error);
