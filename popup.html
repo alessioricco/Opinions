@@ -8,22 +8,24 @@
       --hover-color: #45a049;
       --background-color: #f8f8f8;
       --result-bg-color: #ddd;
+      --disabled-color: #ccc;
     }
 
     body {
-    min-width: 320px;
-    max-width: 1024px;
-    height: auto;
-    padding: 10px;
-    font-family: Arial, sans-serif;
-    color: #333;
-    background-color: var(--background-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto; /* Centers the content horizontally */
-  }
-
+      min-width: 320px;
+      max-width: 1024px;
+      max-height: 50vh;
+      height: auto;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+      color: #333;
+      background-color: var(--background-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+      margin: 0 auto; 
+    }
 
     .hide {
       display: none;
@@ -36,28 +38,25 @@
     .button-row, .center-button {
       display: flex;
       justify-content: space-between;
-      margin: 10px 0; /* Add margin to top and bottom */
+      margin: 10px 0;
     }
 
-
     input[type=text], textarea {
-    width: 100%;
-    min-width: 300px;
-    max-width: 1000px;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin: 0 auto; /* Centers the textarea when its width is less than the container's width */
-  }
+      width: 100%;
+      min-width: 300px;
+      max-width: 1000px;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin: 0 auto;
+    }
 
-
-  .center-button {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-  }
-
+    .center-button {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
 
     .content-container {
       display: flex;
@@ -66,50 +65,63 @@
     }
 
     button {
-      padding: 10px 20px;
+      padding: 5px 10px;
       background-color: var(--primary-color);
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 1em;
+      font-size: 0.8em;
       transition: background-color 0.3s ease;
     }
+
+    button:disabled {
+      background-color: var(--disabled-color);
+      cursor: not-allowed;
+    }
+
 
     button:hover {
       background-color: var(--hover-color);
     }
 
     #resultArea {
-      margin: 10px auto; /* 10px top and bottom margin, auto left and right margin */
+      margin: 10px auto;
       padding: 10px;
       border-radius: 4px;
       background-color: var(--result-bg-color);
       width: 100%;
-      max-width: 1000px; /* Optional: Limit the width of the result area if desired */
+      max-width: 1000px;
       box-sizing: border-box;
-      white-space: pre-wrap; /* Allows the text to wrap to the next line */
+      white-space: pre-wrap;
+      overflow-y: auto;
+      max-height: 120px; 
     }
-
 
     h1 {
       text-align: center;
       color: var(--primary-color);
       font-size: 1.5em;
     }
+
+    .small-font {
+      font-size: 9px; /* adjust this to your desired size */
+    }
   </style>
 </head>
 <body>
   <div id="apiView" class="hide">
-    <h1>Facts and Opinions</h1>
+    <h1>Facts & Opinions</h1>
+    <p>Please insert here your OpenAI key:</p>
     <input type="text" id="apiKeyInput" placeholder="Enter your API key">
+    <p class="small-font">The key will be stored on your browser local storage</p>
     <div class="center-button">
       <button id="apiSubmitButton">Save</button>
     </div>
   </div>
 
   <div id="mainView" class="hide">
-    <h1>Facts and Opinions</h1>
+    <h1>Facts & Opinions</h1>
     <p>Please insert here the text to analyze:</p>
     <div class="content-container">
       <textarea id="textArea" rows="4" cols="50"></textarea>

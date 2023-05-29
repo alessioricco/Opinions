@@ -1,14 +1,14 @@
 {
-    "name": "Facts and Opinions",
-    "version": "1.0.0",
+    "name": "Facts & Opinions",
+    "version": "0.0.0.1",
     "description": "Analyse a text separating facts from opinions",
     "action": {
       "default_popup": "popup.html"
     },
     "icons": {
-      "16": "icon.png",
-      "48": "icon.png",
-      "128": "icon.png"
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
     },
     "background": {
       "service_worker": "background.js"

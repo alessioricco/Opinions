@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var editApiKeyButton = document.getElementById('editApiKeyButton');
   var copyButton = document.getElementById('copyButton');
 
-
   // Check if API key is stored in local storage
   chrome.storage.local.get(['API_KEY'], function(result) {
     if(result.API_KEY) {
@@ -31,9 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
     apiView.classList.remove('hide');
     mainView.classList.add('hide');
     
-    // Optionally, clear the API key input field or fill it with the current key
-    // apiKeyInput.value = '';
-    // OR
     chrome.storage.local.get(['API_KEY'], function(result) {
       apiKeyInput.value = result.API_KEY || '';
     });
@@ -54,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
   copyButton.addEventListener('click', function() {
     // Create a temporary textarea to hold the text to be copied
     var tempElement = document.createElement('textarea');
-    tempElement.value = resultArea.textContent;
+    tempElement.value = resultArea.innerText;  // changed from textContent to innerText
     document.body.appendChild(tempElement);
   
     // Select the text and copy it
@@ -71,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 2000);
   });
   
+  
 
   submitButton.addEventListener('click', function() {
     var textAreaValue = textArea.value;
@@ -83,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Prepare the request body JSON
       var requestBody = {
         text: textAreaValue,
-        apiKey: apiKey // Include the API key in the request
+        LLM_engine: 'openai' // Include the LLM_engine in the request
       };
 
       // Clear the result area and display a wait message
