@@ -1,0 +1,27 @@
+{
+    "name": "Facts and Opinions",
+    "version": "1.0.0",
+    "description": "Analyse a text separating facts from opinions",
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting"
+    ],
+    "host_permissions": [
+      "https://p5yv54ffwizsf2va6zyzedgdni0dzwnq.lambda-url.eu-west-2.on.aws/"
+    ],
+    "author": "Alessio Ricco",
+    "manifest_version": 3
+  }
+  
