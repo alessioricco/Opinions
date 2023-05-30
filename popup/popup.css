@@ -89,10 +89,9 @@
     box-sizing: border-box;
     white-space: pre-wrap;
     overflow-y: auto;
-    max-height: 120px; 
     resize: vertical;
-    overflow: auto;
   }
+  
   
   h1 {
     text-align: center;
