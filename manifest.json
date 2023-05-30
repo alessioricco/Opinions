@@ -1,25 +1,25 @@
 {
-    "name": "Facts and Opinions",
-    "version": "1.0.0",
-    "description": "Analyse a text separating facts from opinions",
+    "name": "Facts & Opinions",
+    "version": "0.0.0.1",
+    "description": "Copy an article and get AI-powered bullet lists of facts & opinions. Uses OpenAI. Easy and quick!",
     "action": {
-      "default_popup": "popup.html"
+      "default_popup": "popup/popup.html"
     },
     "icons": {
-      "16": "icon.png",
-      "48": "icon.png",
-      "128": "icon.png"
-    },
-    "background": {
-      "service_worker": "background.js"
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
     },
     "permissions": [
       "storage",
-      "activeTab",
-      "scripting"
+      "scripting",
+      "activeTab"
     ],
-    "host_permissions": [
-      "https://p5yv54ffwizsf2va6zyzedgdni0dzwnq.lambda-url.eu-west-2.on.aws/"
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
     ],
     "author": "Alessio Ricco",
     "manifest_version": 3

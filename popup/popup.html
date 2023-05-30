@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Facts and Opinions</title>
+  <head>
+  <link rel="stylesheet" type="text/css" href="popup.css">
+</head>
+<body>
+  <div id="apiView" class="hide">
+    <h1>Facts & Opinions</h1>
+    <p>Please insert here your OpenAI key:</p>
+    <input type="text" id="apiKeyInput" placeholder="Enter your API key">
+    <p class="small-font">The key will be stored on your browser local storage</p>
+    <div class="center-button">
+      <button id="apiSubmitButton">Save</button>
+    </div>
+  </div>
+
+  <div id="mainView" class="hide">
+    <h1>Facts & Opinions</h1>
+    <p>Please insert here the text to analyze:</p>
+    <div class="content-container">
+      <textarea id="textArea" rows="4" cols="50"></textarea>
+      <div class="button-row">
+        <button id="editApiKeyButton">Edit API Key</button>
+        <!-- Button to copy selected text into the textarea -->
+        <button id="copySelectedTextButton">Copy Selected Text</button>
+        <button id="submitButton" disabled>Submit</button>
+      </div>
+      <div id="resultArea"></div>
+      <div class="center-button">
+        <button id="copyButton" disabled>Copy Result</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
