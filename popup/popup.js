@@ -21,9 +21,20 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Textarea input event
-  textArea.addEventListener('input', function() {
-    document.getElementById('submitButton').disabled = !this.value;
-  });
+  textArea.addEventListener('input', handleTextInput);
+
+  // Handle the textarea content immediately
+  handleTextInput.call(textArea);
+
+  function handleTextInput() {
+    submitButton.disabled = !this.value;
+    if (!this.value) {
+      resultArea.classList.add('hide');
+      copyButton.disabled = true;
+    } else {
+      resultArea.classList.remove('hide');
+    }
+  }
 
   editApiKeyButton.addEventListener('click', function() {
     // Show API view and hide main view
