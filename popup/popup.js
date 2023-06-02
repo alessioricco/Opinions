@@ -172,6 +172,10 @@ const currentBrowser =  getBrowser();
     mainView.classList.remove('hide');
   }
 
+  function toggleRemoveAPIKeyButton(){
+    apiRemoveButton.style.display =  (isValidApiKey(apiKeyInput.value)) ? "block" : "none"
+  }
+
   /*
   switchToApiView(): 
   This function hides the 'mainView' element and displays the 'apiView' element. 
@@ -180,6 +184,7 @@ const currentBrowser =  getBrowser();
   function switchToApiView() {
     apiView.classList.remove('hide');
     mainView.classList.add('hide');
+    toggleRemoveAPIKeyButton()
   }
 
   // Fetch API key from local storage
@@ -245,7 +250,7 @@ const currentBrowser =  getBrowser();
     switchToApiView();
     currentBrowser.storage.local.get(['API_KEY'], function(result) {
       apiKeyInput.value = result.API_KEY || '';
-      apiRemoveButton.style.display =  (isValidApiKey(apiKeyInput.value)) ? "block" : "none"
+      // apiRemoveButton.style.display =  (isValidApiKey(apiKeyInput.value)) ? "block" : "none"
     });
   });
 
@@ -274,6 +279,7 @@ const currentBrowser =  getBrowser();
     } else {
       alert('Invalid API key. Please enter a valid API key.');
     }
+    
   });
 
   document.getElementById('apiRemoveButton').addEventListener('click', function() {
@@ -283,6 +289,7 @@ const currentBrowser =  getBrowser();
     // Remove the key from the storage
     currentBrowser.storage.local.remove('API_KEY', function() {
       // This is a callback function that runs after the key is removed
+      toggleRemoveAPIKeyButton()
       console.log('Key removed from storage');
     });
   });
@@ -349,7 +356,7 @@ const currentBrowser =  getBrowser();
 
   function displayResult(resultText) {
       // replace innerHTML with textContent to avoid potential XSS attacks
-      resultArea.textContent = resultText;
+      resultArea.innerHTML = resultText;
       // Enable the copy button now that there's a result to copy
       showElement(copyButton);
       showElement(resultArea);
