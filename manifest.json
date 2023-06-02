@@ -22,13 +22,6 @@
       "scripting",
       "activeTab"
     ],
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-      }
-    ],
     "author": "Alessio Ricco",
     "manifest_version": 3
   }
-  
