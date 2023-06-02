@@ -1,105 +1,295 @@
 :root {
-    --primary-color: #4CAF50;
-    --hover-color: #45a049;
-    --background-color: #f8f8f8;
-    --result-bg-color: #ddd;
-    --disabled-color: #ccc;
-  }
-  
-  body {
-    min-width: 320px;
-    max-width: 1024px;
-    max-height: 50vh;
-    height: auto;
-    padding: 10px;
-    font-family: Arial, sans-serif;
-    color: #333;
-    background-color: var(--background-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto;
-    margin: 0 auto; 
-  }
-  
-  .hide {
-    display: none;
-  }
-  
-  #mainView, #apiView {
-    width: 100%;
-  }
-  
-  .button-row, .center-button {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-  }
-  
-  input[type=text], textarea {
-    width: 100%;
-    min-width: 300px;
-    max-width: 1000px;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin: 0 auto;
-  }
-  
-  .center-button {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-  }
-  
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  button {
-    padding: 5px 10px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.8em;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:disabled {
-    background-color: var(--disabled-color);
-    cursor: not-allowed;
-  }
-  
-  button:hover {
-    background-color: var(--hover-color);
-  }
-  
-  #resultArea {
-    margin: 10px auto;
-    padding: 10px;
-    border-radius: 4px;
-    background-color: var(--result-bg-color);
-    width: 100%;
-    max-width: 1000px;
-    box-sizing: border-box;
-    white-space: pre-wrap;
-    overflow-y: auto;
-    resize: vertical;
-  }
-  
-  
-  h1 {
-    text-align: center;
-    color: var(--primary-color);
-    font-size: 1.5em;
-  }
-  
-  .small-font {
-    font-size: 9px; /* adjust this to your desired size */
-  }
-  
+  --background-color: #f8f8f8;
+  --disabled-color: #ccc;
+  --hover-color: #45a049;
+  --primary-color: #4CAF50;
+  --result-bg-color: #ddd;
+}
+
+body {
+  align-items: center;
+  background-color: var(--background-color);
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0 auto;
+  /* margin-bottom: 20px; */
+  max-width: 1024px;
+  min-height: 50vh;
+  min-width: 320px;
+  overflow-y: auto;
+  padding: 15px;
+  resize: vertical;
+}
+
+#submitButton {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+#mainView, #apiView {
+  width: 100%;
+}
+
+select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+.square-button {
+  align-items: center;
+  display: flex;
+  font-size: 0.8em;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
+}
+
+input[type=text], textarea {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  max-width: 1000px;
+  min-width: 300px;
+  padding: 10px;
+  width: 100%;
+}
+
+.button-row, .center-button {
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+}
+
+.content-container {
+  align-items: flex-start; /* Change this to flex-start */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.center-button {
+  display: flex;
+  justify-content: center;
+  margin: auto; /* Add this line */
+  width: 100%;
+}
+
+button {
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 15px 10px; /* Adjusted padding */
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  background-color: var(--disabled-color);
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: var(--hover-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#resultArea {
+  background-color: var(--result-bg-color);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: 'none';
+  margin: 10px auto;
+  max-height: 640px; /* Maximum height at which the scrollbar appears */
+  max-width: 400px; /* Change to the maximum width desired */
+  min-height: 100px; /* Initial minimum height */
+  min-width: 320px;
+  overflow-y: auto;
+  padding: 15px;
+  resize: vertical;
+  width: 100%;
+}
+
+h1 {
+  color: var(--primary-color);
+  font-size: 1.7em;
+  text-align: center;
+}
+
+.small-font {
+  color: #666;
+  font-size: 14px;
+}
+
+label, p {
+  margin-bottom: 5px; /* Increased margin for better readability */
+}
+
+#copyButton {
+  display: none;
+  margin-top: 10px;
+}
+
+.top-right-button {
+  font-size: 20px; /* Increase font size */
+  height: 40px; /* Set a fixed height */
+  line-height: 1; /* Center the symbol vertically */
+  padding: 5px; /* Reduce padding */
+  position: absolute;
+  right: 15px;
+  text-align: center; /* Center the symbol horizontally */
+  top: 15px;
+  width: 40px; /* Set a fixed width */
+}
+
+pre {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px; /* Or any other size that you prefer */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.loader {
+  animation: spin 2s linear infinite;
+  border: 16px solid #f3f3f3; 
+  border-radius: 50%;
+  border-top: 16px solid #3498db; 
+  height: 120px;
+  width: 120px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.step-done {
+  text-decoration: line-through;
+}
+
+#mainArea {
+  position: relative;
+  /* Other styles remain the same */
+}
+
+#spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--background-color); /* Using the same background color as the #mainArea */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+.loading-text {
+  align-items: center;
+  color: black; /* Adjust this to your preference */
+  display: flex;
+  font-size: 1em;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.icon-button:disabled {
+  background-color: var(--disabled-color);
+  cursor: not-allowed;
+}
+
+input[type=text]:focus {
+  border: 1px solid rgba(81, 203, 238, 1);
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  margin: 5px 1px 3px 0px;
+  padding: 5px 0px 5px 5px;
+}
+
+.icon-button {
+  align-items: center;
+  background: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 10px;
+  transition: all 0.3s ease-out;
+}
+
+.icon-button:hover {
+  background: var(--hover-color);
+  transform: scale(1.05);
+}
+
+.icon-button:active {
+  transform: scale(1);
+}
+
+.success-message {
+  color: green;
+  margin-top: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+#apiRemoveButton {
+  background-color: #f44336; /* For example, red color */
+}
+
+#apiRemoveButton:hover {
+  background-color: #d32f2f; /* Darker red color on hover */
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
+.small-centered-text {
+  font-size: 0.8em; /* Make the text smaller. You can adjust the value to suit your needs */
+  text-align: center; /* Center the text horizontally */
+  display: block; /* Ensure the label takes the full width to allow for centering */
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed #ccc;
+  color: #999;
+  overflow: visible;
+  text-align: center;
+  width: 100%;
+}

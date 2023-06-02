@@ -1,38 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Facts and Opinions</title>
-  <head>
+  <title>Facts & Opinions</title>
   <link rel="stylesheet" type="text/css" href="popup.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
 </head>
 <body>
+  <h1>Facts & Opinions</h1>
+
   <div id="apiView" class="hide">
-    <h1>Facts & Opinions</h1>
-    <p>Please insert here your OpenAI key:</p>
-    <input type="text" id="apiKeyInput" placeholder="Enter your API key">
-    <p class="small-font">The key will be stored on your browser local storage</p>
+    <label for="apiKeyInput">Step 1: Insert your OpenAI API Key.</label><br> 
+    <label for="apiKeyInput">You can find it on your <a href="https://platform.openai.com/signup" target="_blank">OpenAI Dashboard</a>:</label><p/> 
+    <input type="text" id="apiKeyInput" placeholder="Enter your API key here" required>
+    <p/><label for="apiKeyInput">Rest assured, your key will be securely stored in your browser's local storage for future sessions.</label>
+
     <div class="center-button">
-      <button id="apiSubmitButton">Save</button>
+      <button id="apiSubmitButton" class="icon-button"><i class="material-icons">save</i>Save API Key</button>
+      <button id="apiRemoveButton" class="icon-button"><i class="material-icons">delete</i>Remove API Key</button>
     </div>
   </div>
 
   <div id="mainView" class="hide">
-    <h1>Facts & Opinions</h1>
-    <p>Please insert here the text to analyze:</p>
-    <div class="content-container">
-      <textarea id="textArea" rows="4" cols="50"></textarea>
-      <div class="button-row">
-        <button id="editApiKeyButton">Edit API Key</button>
-        <!-- Button to copy selected text into the textarea -->
-        <button id="copySelectedTextButton">Copy Selected Text</button>
-        <button id="submitButton" disabled>Submit</button>
+
+
+    <button id="editApiKeyButton" class="icon-button top-right-button" title="Edit API Key"><i class="material-icons">settings</i></button>
+
+    <div id="instructions">
+      <label for="analysisType" class="step-done">Step 1: Insert your OpenAI API Key.</label><b>&#x2713;</b><br>
+      <label>Step 2: Select any text you want to analyze.</label>
+    </div>
+    
+    <div id="mainContent">
+      <label for="analysisType" class="step-done">Step 1: Insert your OpenAI API Key.</label><b>&#x2713;</b><br>
+      <label for="analysisType" class="step-done">Step 2: Select any text you want to analyze.</label><b>&#x2713;</b><br>
+      
+      <label for="languages">Step 3: Choose the output language.</label><br>
+      <select id="languages">
+        <option value="english">English</option>
+        <option value="arabic">Arabic</option>
+        <option value="chinese">Chinese</option>
+        <option value="dutch">Dutch</option>
+        <option value="french">French</option>
+        <option value="german">German</option>
+        <option value="italian">Italian</option>
+        <option value="japanese">Japanese</option>
+        <option value="korean">Korean</option>
+        <option value="portuguese">Portuguese</option>
+        <option value="russian">Russian</option>
+        <option value="spanish">Spanish</option>
+      </select>      
+      
+      
+      <label for="analysisType">Step 4: Decide how you want to analyze the text.</label><br>
+      <select id="analysisType">
+        <option value="blank">Pick Analysis Option</option>
+        <option value="facts">Facts and Opinions</option>
+        <option value="tldr">TL;DR</option>
+        <option value="sentiment">Sentiment Analysis</option>
+        <option value="strategy">Strategy Brief</option>
+      </select>
+
+
+      
+
+      <div id="hiddenArea">
+          <span>Step 3: Click this button to analyze the text: </span>
+          <button id="copySelectedTextButton" class="icon-button" title="Copy Selected Text"><i class="material-icons">content_copy</i></button>
+          <span>Your selected text:</span>
+          <textarea id="textArea" readonly></textarea>
       </div>
-      <div id="resultArea"></div>
-      <div class="center-button">
-        <button id="copyButton" disabled>Copy Result</button>
+
+
+
+      <div class="content-container">
+      
+        <div class="button-row">
+          <button id="submitButton" class="icon-button square-button" title="Analyze Text" disabled><i class="material-icons">search</i>Analyze</button>
+
+        </div>
+        <div id="resultArea"></div>
+
+
+        
+        
+        <div class="center-button">
+          <button id="copyButton" class="icon-button"><i class="material-icons">content_copy</i>Copy Result To Clipboard</button>
+        </div>
       </div>
     </div>
+
   </div>
+
+  <div id="spinner" style="display:none">
+    <div class="spinner-container">
+      <div class="loader"></div>
+      <p class="loading-text">Analyzing...</p>
+    </div>
+  </div>
+
+    <br/><hr>
+  <label class="small-centered-text">Powered by ChatGPT API. This software uses APIs that may produce inaccurate information about people, places, or facts</label>
 
   <script src="popup.js"></script>
 </body>
