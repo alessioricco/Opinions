@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Facts & Opinions</title>
+  <title>Facts & Opinions (Powered by ChatGPT API)</title>
   <link rel="stylesheet" type="text/css" href="popup.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
@@ -51,18 +51,29 @@
         <option value="spanish">Spanish</option>
       </select>      
       
-      
       <label for="analysisType">Step 4: Decide how you want to analyze the text.</label><br>
       <select id="analysisType">
-        <option value="blank">Pick Analysis Option</option>
+        <option value="blank">--- analysis options ---</option>
+        <option value="title">Title</option>
+        <option value="tldr">TL;DR (Too Long; Didn't Read)</option>
         <option value="facts">Facts and Opinions</option>
-        <option value="tldr">TL;DR</option>
         <option value="sentiment">Sentiment Analysis</option>
         <option value="strategy">Strategy Brief</option>
+
+        <option value="blank">--- social ---</option>
+        <option value="tweet">Tweet</option>
+        <option value="instagram">Instagram</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="facebook">Facebook</option>
+
+        <option value="blank">--- style ---</option>
+        <option value="critique">Critique</option>
+        <option value="appraisal">Appraisal</option>
+        <option value="style">Stylistic Analysis</option>
+        <option value="purpose">Author's Purpose</option>
+        <option value="context">Contextual Understanding</option>
+        <option value="argument">Argument Analysis</option>
       </select>
-
-
-      
 
       <div id="hiddenArea">
           <span>Step 3: Click this button to analyze the text: </span>
@@ -71,23 +82,16 @@
           <textarea id="textArea" readonly></textarea>
       </div>
 
-
-
       <div class="content-container">
-      
         <div class="button-row">
           <button id="submitButton" class="icon-button square-button" title="Analyze Text" disabled><i class="material-icons">search</i>Analyze</button>
-
         </div>
         <div id="resultArea"></div>
-
-
-        
-        
         <div class="center-button">
           <button id="copyButton" class="icon-button"><i class="material-icons">content_copy</i>Copy Result To Clipboard</button>
         </div>
       </div>
+
     </div>
 
   </div>

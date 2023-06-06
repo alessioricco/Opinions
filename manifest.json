@@ -1,7 +1,7 @@
 {
-    "name": "Facts & Opinions",
-    "version": "0.0.0.2",
-    "description": "Copy an article and get AI-powered bullet lists of facts & opinions. Uses OpenAI. Easy and quick!",
+    "name": "Facts & Opinions - Powered by ChatGPT API",
+    "version": "0.0.0.3",
+    "description": "Copy an article and get AI-powered bullet lists of facts & opinions. Uses OpenAI Chat API. Easy and quick!",
     "action": {
       "default_popup": "popup/popup.html",
       "options_page": "config.html",

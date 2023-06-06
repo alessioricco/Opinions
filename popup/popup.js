@@ -43,25 +43,77 @@ const currentBrowser =  getBrowser();
 
   const PROMPTS = {
     'facts': `
-      Your task is to accurately identify and categorize the facts and opinions within it. 
-      Your response should consist only of two bullet lists: one presenting the facts, and the other presenting the opinions. 
+    Identify and classify all the facts within the content. These should be statements that are objectively true and can be independently verified. Compile these facts into a bullet list.
+    Likewise, distinguish all the opinions within the text. These are statements that express personal beliefs, views, or sentiments that cannot be objectively proven. Create a separate bullet list for these opinions.
+    Please present your findings in two distinct bullet lists: one for the facts, and the other for the opinions.
     `,
+
     'strategy': `
-      Analyze the provided text to complete the following tasks:
-      - Summarize the content in less than 512 characters.
-      - Differentiate between facts and opinions within the text.
-      - Determine the sentiment in the short, mid, and long term.
-      - Formulate actionable items based on the text, sentiments, and facts. 
-      The output will be divided in paragraphs and bullet points
+    - Compose a succinct summary of the entire content in 512 characters or less, focusing on the main themes and takeaways.
+    - Distinguish between factual statements and opinion-based assertions present within the text, providing examples of each.
+    - Perform a multi-tiered sentiment analysis, identifying the general emotional tone in the short, mid, and long term contexts.
+    - Based on the text, sentiments, and factual information, formulate clear, actionable steps for readers to consider.
+    - The resulting analysis should be divided into well-structured paragraphs, with bullet points for key details,recommendations and actions.
     `,
+
+    'instagram': `
+    Create an engaging Instagram caption based on the provided text. Make it personable and fun, and include relevant hashtags for visibility.
+    `,
+
+    'linkedin': `
+    Craft a professional, informative LinkedIn post summarizing the main takeaways from the attached text. Use a tone appropriate for a professional network.
+    `,
+
+    'facebook': `
+    Translate the key points from the provided text into a casual, friendly Facebook post. Feel free to use a more conversational tone.
+    `,
+
     'tldr': `
-      Analyze the provided text to complete the following tasks:
-      - Generate a TL;DR summary. 
+    Generate a 'TL;DR' (Too Long; Didn't Read) summary. 
+    This summary should condense the main points and findings of the text into a brief, easy-to-understand format that captures the essence of the content.
     `,
+
     'sentiment': `
-      Analyze the provided text to complete the following tasks:
-      - Generate a sentiment analysis. 
+    Conduct a sentiment analysis, identifying and categorizing the predominant emotional expressions within the text. 
+    Provide a brief explanation of your findings, detailing the predominant sentiment (positive, negative, neutral) and any notable emotional undertones.
     `,
+
+    'critique': `
+    Perform a thorough analysis with a critical lens. 
+    Identify and discuss the weak points in the arguments, any unsupported statements, or any areas where the text could be less defensible. 
+    Provide clear explanations and justifications for each point of critique. 
+    Your output should provide readers with a deeper understanding of potential issues or flaws in the text.    `,
+
+    'appraisal': `
+    Conduct a comprehensive analysis to identify its strengths. 
+    Pinpoint and elaborate on the most compelling arguments, well-supported statements, and areas where the text is particularly defensible or persuasive. 
+    For each point, provide clear explanations and reasons why these stand out. 
+    Your output should give readers a thorough understanding of the merits and strong points within the text.`,
+
+    'tweet': `
+    Immerse yourself in the provided text, comprehending its central ideas and tone. 
+    Afterward, compose a tweet as if you're the author or a reader, directly expressing the essence of the text. 
+    Be sure to make it engaging with appropriate hashtags and emoticons while adhering to Twitter's character limit. 
+    The output should be solely the tweet itself, without any third-party commentary or explanation.
+    `,
+
+    'title': `
+    Create an SEO-compliant title for an online news website. 
+    The title should be reflective of the main points in the article, incorporate relevant keywords, and maintain high readability and relevance for the audience.
+    `,  
+
+    'style':
+    "Analyze the author's style in the provided text. Comment on their use of syntax, diction, figurative language, and rhetorical devices. How does their style contribute to the text's impact?",
+
+    'purpose':
+    "Analyze the provided text and determine the author's main purpose or intention. What techniques or strategies does the author use to achieve this purpose?",
+
+    'context': 
+    "Given the attached text, identify and explain any references or allusions to historical events, literary works, or cultural phenomena. How do these references contribute to the overall meaning of the text?",
+
+    'argument': 
+    "Identify the main argument in the provided text. Break down the logic, evidence, and rhetorical strategies the author uses to support this argument. Evaluate the strength of the argument and suggest any potential counterarguments."
+
   };
   
 
@@ -172,8 +224,8 @@ const currentBrowser =  getBrowser();
     mainView.classList.remove('hide');
   }
 
-  function toggleRemoveAPIKeyButton(){
-    apiRemoveButton.style.display =  (isValidApiKey(apiKeyInput.value)) ? "block" : "none"
+  function toggleRemoveAPIKeyButton(value){
+    // apiRemoveButton.style.display =  isValidApiKey(value ? value : apiKeyInput.value) ? "block" : "none"
   }
 
   /*
@@ -181,22 +233,24 @@ const currentBrowser =  getBrowser();
   This function hides the 'mainView' element and displays the 'apiView' element. 
   This is used when you don't have a valid API key and need the user to enter it.
   */
-  function switchToApiView() {
+  function switchToApiView(result) {
     apiView.classList.remove('hide');
     mainView.classList.add('hide');
-    toggleRemoveAPIKeyButton()
+    
+    // toggleRemoveAPIKeyButton(result)
   }
 
   // Fetch API key from local storage
   currentBrowser.storage.local.get(['API_KEY'], function(result) {
     if (result.API_KEY && isValidApiKey(result.API_KEY)) {
       switchToMainView();
+      apiRemoveButton.style.display = "block"
     } else {
-      switchToApiView();
-      // switchToMainView();
-      // mainContent.style.display = 'none';
-      // instructions.style.display = 'block';
+      switchToApiView(result);
+      apiRemoveButton.style.display = "none"
+      
     }
+    
   });
 
   /*
@@ -250,7 +304,7 @@ const currentBrowser =  getBrowser();
     switchToApiView();
     currentBrowser.storage.local.get(['API_KEY'], function(result) {
       apiKeyInput.value = result.API_KEY || '';
-      // apiRemoveButton.style.display =  (isValidApiKey(apiKeyInput.value)) ? "block" : "none"
+      toggleRemoveAPIKeyButton()
     });
   });
 
@@ -289,7 +343,8 @@ const currentBrowser =  getBrowser();
     // Remove the key from the storage
     currentBrowser.storage.local.remove('API_KEY', function() {
       // This is a callback function that runs after the key is removed
-      toggleRemoveAPIKeyButton()
+      // toggleRemoveAPIKeyButton()
+      apiRemoveButton.style.display = "none"
       console.log('Key removed from storage');
     });
   });
@@ -343,7 +398,8 @@ const currentBrowser =  getBrowser();
       });
   
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        // throw new Error('Network response was not ok');
+        throw new Error(response.text);
       }
       return await response.json();
     }
@@ -356,7 +412,7 @@ const currentBrowser =  getBrowser();
 
   function displayResult(resultText) {
       // replace innerHTML with textContent to avoid potential XSS attacks
-      resultArea.innerHTML = resultText;
+      resultArea.innerHTML = `<pre>${resultText}</pre>`;
       // Enable the copy button now that there's a result to copy
       showElement(copyButton);
       showElement(resultArea);
@@ -378,7 +434,6 @@ const currentBrowser =  getBrowser();
       var apiKey = result.API_KEY;
   
       // Show spinner
-      // const spinner = document.getElementById('spinner');
       flexElement(spinner);
   
       // Disable the dropdown
@@ -424,11 +479,21 @@ const currentBrowser =  getBrowser();
   
     // Get the selected analysis type and corresponding prompt
     const selectedAnalysisType = analysisTypeDropdown.value;
-    const selectedPrompt = PROMPTS[selectedAnalysisType] + `
-    - Your output MUST include only the required information
-    - Your output MUST be in ${languageDropdown.value} language
-    - The text to analize is the following:
+
+    const selectedPrompt = `
+    Given the following text, you're tasked to perform an in-depth analysis following the specified prompt:
+
     "{{text}}"
+    
+    Please execute the assigned task based on this selected analysis type:
+    
+    ${PROMPTS[selectedAnalysisType]}
+    
+    Adhere to these strict guidelines while completing your task:
+    
+    Your output should focus solely on the required information according to the selected analysis type.
+    The language of your output must be in ${languageDropdown.value}.
+    Please ensure your analysis is thorough and meets the set requirements.
     `;
 
     LLMCall(textAreaValue, selectedPrompt)
